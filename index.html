@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="color-scheme" content="light">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>なやまっちたたき｜納屋町商店街</title>
+<meta name="description" content="納屋町商店街のなやまっちを叩いてお悩み解決！週間・月間ランキングつきのモグラ叩きゲーム。">
+<meta property="og:title" content="なやまっちたたき｜納屋町商店街">
+<meta property="og:description" content="お悩み、たたいて解決！">
+<meta property="og:image" content="ogp.png">
+<meta property="og:type" content="website">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DotGothic16&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="bg-underlay" aria-hidden="true"></div>
+<button id="mute-btn" title="音を切り替え">♪</button>
+<header>
+  <div class="noren">
+    <div class="na-mark">な</div>
+    <h1>なやまっちたたき</h1>
+  </div>
+  <div class="tagline">お悩み、たたいて解決！ — 納屋町商店街</div>
+</header>
+
+<main>
+  <!-- タイトル -->
+  <section id="scr-title" class="screen active">
+    <div class="title-hero" id="title-naya"></div>
+    <div class="rules">
+      ・<b>なやまっち</b>をたたいてお悩み解決（+10〜）<br>
+      ・連続でたたくと<b>コンボ</b>で得点アップ<br>
+      ・<b>商店街の人</b>をたたくと −30！ よく見て！<br>
+      ・<span class="fever-word">ドクター・ヒロ</span>にタッチで<span class="fever-word">笑顔フィーバー</span>（5秒間 得点2倍）<br>
+      ・制限時間60秒／ラスト10秒は大ラッシュ
+    </div>
+    <div class="stack">
+      <button class="btn" id="btn-start">スタート</button>
+      <button class="btn ghost" id="btn-ranking">ランキングを見る</button>
+    </div>
+  </section>
+
+  <!-- ゲーム -->
+  <section id="scr-game" class="screen">
+    <div class="hud">
+      <div class="box" id="hud-score"><div class="label">スコア</div><div class="val">0</div></div>
+      <div class="box" id="hud-combo"><div class="label">コンボ</div><div class="val">0</div></div>
+      <div class="box" id="hud-time"><div class="label">のこり</div><div class="val">60</div></div>
+    </div>
+    <div id="fever-bar"><div id="fever-fill"></div></div>
+    <div id="board"></div>
+  </section>
+
+  <!-- 結果 -->
+  <section id="scr-result" class="screen">
+    <div class="result-card" id="result-card">
+      <div class="label" style="font-size:12px;color:#6a5c48">けっか</div>
+      <div class="big" id="result-score">0</div>
+      <div class="meta" id="result-meta"></div>
+      <div class="register-row" id="register-row">
+        <input id="name-input" maxlength="10" placeholder="なまえ（10文字まで）">
+        <button class="btn" id="btn-register">登録</button>
+      </div>
+      <div class="registered-note" id="registered-note" style="display:none">ランキングに登録しました！</div>
+    </div>
+
+    <div class="board-panel">
+      <div class="board-tabs">
+        <button id="tab-weekly" class="on">週間 TOP10</button>
+        <button id="tab-monthly">月間 TOP3</button>
+      </div>
+      <ol class="board-list" id="board-list"></ol>
+      <div class="board-caption" id="board-caption"></div>
+    </div>
+
+    <div class="stack">
+      <button class="btn" id="btn-retry">もう一回</button>
+      <button class="btn sub" id="btn-title">タイトルへ</button>
+    </div>
+    <div class="footnote" id="backend-note"></div>
+  </section>
+</main>
+
+<div id="countdown"></div>
+
+<script src="game.js"></script>
+</body>
+</html>
