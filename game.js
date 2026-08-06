@@ -74,8 +74,8 @@ document.getElementById('mute-btn').addEventListener('click', e=>{
    テーブル定義・手順は同梱の README.md を参照。
 ========================================================= */
 const CONFIG = {
-  SUPABASE_URL: '',        // 例: https://xxxx.supabase.co
-  SUPABASE_ANON_KEY: '',   // Project Settings → API → anon public
+  SUPABASE_URL: 'https://hfdxyhntihqvofavrlfy.supabase.co',        // 例: https://xxxx.supabase.co
+  SUPABASE_ANON_KEY: 'sb_publishable_OQVYTZA2mq_9yZClJQYjRg_nzLB_ilz',   // Project Settings → API → anon public
   GAME_ID: 'nayamole'
 };
 const useSupabase = () => !!(CONFIG.SUPABASE_URL && CONFIG.SUPABASE_ANON_KEY);
