@@ -1,0 +1,62 @@
+  /* ---- 対戦（プレイヤー側）追加スタイル ---- */
+  .field{display:block; margin-bottom:12px}
+  .field span{display:block; font-size:11px; color:#6a5c48; letter-spacing:.1em; margin-bottom:4px}
+  .field input, .join-row input{
+    width:100%; font-family:inherit; font-size:17px; padding:10px 12px;
+    border:2px solid var(--ink); border-radius:8px; background:#fff; min-width:0;
+  }
+  .join-row{display:flex; gap:8px}
+  .join-row .btn{width:auto; padding:12px 18px; white-space:nowrap}
+  .linkbtn{display:block; text-align:center; text-decoration:none}
+
+  .room-card{
+    background:#fff; border:3px solid var(--ink); border-radius:12px;
+    padding:14px 16px 12px; text-align:center; margin-bottom:12px;
+  }
+  .room-card .label, .members-panel .label{font-size:11px; letter-spacing:.15em; color:#6a5c48}
+  .room-code{font-size:64px; line-height:1.1; color:var(--crimson); letter-spacing:.12em; margin:2px 0 6px}
+  .room-hint{font-size:11px; color:#6a5c48; line-height:1.8}
+  .room-hint b{color:var(--navy)}
+  .mono{font-family:monospace; font-size:11px; word-break:break-all; color:var(--navy)}
+  .members-panel{background:#fff; border:2px solid var(--ink); border-radius:12px; padding:10px 14px; margin-bottom:12px}
+  .members{list-style:none; margin-top:6px}
+  .members li{display:flex; align-items:center; gap:8px; padding:6px 0; border-bottom:1px dashed #d6c9a6; font-size:15px}
+  .members li:last-child{border-bottom:none}
+  .members li .tag{font-size:10px; padding:2px 6px; border-radius:4px; background:var(--navy); color:#fff; letter-spacing:.1em}
+  .members li .tag.watch{background:var(--green)}
+  .members li .tag.me{background:var(--orange)}
+  .members li.empty{color:#9a8a6c; font-size:13px; justify-content:center; padding:10px 0}
+  .waiting-note{font-size:12px; color:#6a5c48; text-align:center; line-height:1.8; min-height:1.8em}
+
+  .vs-strip{
+    display:flex; align-items:center; gap:8px; margin-bottom:8px;
+    background:#fff; border:2px solid var(--ink); border-radius:8px; padding:6px 10px; font-size:12px;
+  }
+  .vs-strip .nm{overflow:hidden; text-overflow:ellipsis; white-space:nowrap; max-width:7em; display:inline-block; vertical-align:bottom}
+  .vs-op{display:flex; align-items:baseline; gap:6px; color:var(--navy)}
+  .vs-op .sc{font-size:16px}
+  .vs-bar{flex:1; height:10px; background:#e2d6b8; border-radius:5px; overflow:hidden; position:relative}
+  .vs-bar::after{content:""; position:absolute; left:50%; top:0; bottom:0; width:2px; background:rgba(36,29,20,.35)}
+  .vs-fill{height:100%; width:50%; background:linear-gradient(90deg,var(--navy),var(--crimson)); transition:width .3s ease}
+
+  .toast{
+    position:fixed; left:50%; top:46%; transform:translate(-50%,-50%) scale(.9);
+    background:var(--navy); color:#fff; padding:10px 16px; border-radius:10px;
+    font-size:15px; letter-spacing:.06em; opacity:0; pointer-events:none; z-index:15;
+    transition:opacity .15s, transform .15s; white-space:nowrap; box-shadow:0 4px 0 rgba(0,0,0,.25);
+  }
+  .toast.show{opacity:1; transform:translate(-50%,-50%) scale(1)}
+  .toast.bad{background:var(--crimson)}
+  .toast.good{background:var(--green)}
+  .hole.trap .cellimg{filter:drop-shadow(0 0 6px var(--crimson))}
+
+  .verdict{font-size:48px; line-height:1.1; letter-spacing:.1em; color:var(--crimson)}
+  .verdict.lose{color:var(--navy)}
+  .verdict.draw{color:var(--green)}
+  .vs-scores{display:flex; align-items:center; justify-content:center; gap:10px; margin-top:8px}
+  .vs-scores .col{flex:1}
+  .vs-scores .who{font-size:12px; color:#6a5c48; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+  .vs-scores .big{font-size:40px}
+  .vs-scores .big.op{color:var(--navy)}
+  .vs-scores .vsmark{font-size:14px; color:#9a8a6c}
+  .result-card .meta{font-size:11px}
