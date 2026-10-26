@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="color-scheme" content="dark">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>なやまっち一斉たたき モニタ｜納屋町商店街</title>
+<meta name="description" content="なやまっち一斉たたきの司会・大型モニタ画面。">
+<link rel="icon" href="../icons/icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DotGothic16&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="screen.css">
+</head>
+<body>
+<div class="topbar">
+  <div class="brand"><span class="na-mark">な</span><span class="ttl">なやまっち一斉たたき</span><span class="sub">納屋町商店街</span></div>
+  <div class="chips"><span class="chip">部屋 <b id="chip-code">----</b></span><span class="chip">参加 <b id="chip-count">0</b> 人</span></div>
+  <div class="tools"><button id="mute-btn" title="音">♪</button><button id="fs-btn" title="全画面">⛶</button></div>
+</div>
+
+<!-- 受付 -->
+<section id="scr-setup" class="view active">
+  <div class="setup-grid">
+    <div class="qr-card">
+      <div class="qr-label">スマホで読み取って参加</div>
+      <div id="qr"></div>
+      <div class="join-url" id="join-url"></div>
+      <div class="qr-code-label">部屋コード <b id="setup-code">----</b></div>
+    </div>
+    <div class="setup-right">
+      <div class="hero" id="setup-naya"></div>
+      <div class="howto">
+        <div>・合図でなやまっちが飛び出す。<b>はやくたたけ！</b></div>
+        <div>・<b>商店街の人</b>が出たら<b>たたかない</b>。がまんでボーナス</div>
+        <div>・<span class="fv">ドクター・ヒロ</span>の回は<span class="fv">2倍</span></div>
+        <div>・フライングは減点</div>
+      </div>
+      <div class="setup-ctrl">
+        <label>ラウンド数
+          <select id="rounds-sel"><option>5</option><option selected>10</option><option>15</option><option>20</option></select>
+        </label>
+        <button class="btn" id="btn-start">スタート</button>
+        <button class="btn sub" id="btn-tug">団体戦（綱引き）</button>
+      </div>
+      <div class="note" id="setup-note"></div>
+    </div>
+  </div>
+  <div class="names" id="names"></div>
+</section>
+
+<!-- ラウンド -->
+<section id="scr-round" class="view">
+  <div class="round-top">
+    <div class="round-no" id="round-no">ラウンド 1 / 10</div>
+    <div class="round-kind" id="round-kind"></div>
+  </div>
+  <div class="round-body">
+    <div class="stage" id="stage">
+      <div class="stage-msg" id="stage-msg">まて…</div>
+      <div class="stage-hole"><img class="stage-img" id="stage-img" alt=""></div>
+      <div class="stage-sub" id="stage-sub"></div>
+    </div>
+    <div class="side">
+      <div class="panel">
+        <div class="panel-title" id="rt-title">この回の最速</div>
+        <ol class="rt-list" id="rt-list"></ol>
+        <div class="rt-stat" id="rt-stat"></div>
+      </div>
+      <div class="panel">
+        <div class="panel-title">総合 TOP10</div>
+        <ol class="total-list" id="total-list"></ol>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 綱引き -->
+<section id="scr-tug" class="view">
+  <div class="tug-head"><div class="tug-title">団体戦・綱引き</div><div class="tug-time" id="tug-time">10</div></div>
+  <div class="tug-arena">
+    <div class="tug-side red"><div class="tname">あかチーム</div><div class="tcount" id="tug-red">0</div><div class="tsub">一人あたり（回）</div><div class="tmem" id="tug-red-n">0人</div></div>
+    <div class="tug-bar"><div class="tug-fill" id="tug-fill"></div><div class="tug-rope"><span id="tug-naya"></span></div></div>
+    <div class="tug-side blue"><div class="tname">あおチーム</div><div class="tcount" id="tug-blue">0</div><div class="tsub">一人あたり（回）</div><div class="tmem" id="tug-blue-n">0人</div></div>
+  </div>
+  <div class="tug-msg" id="tug-msg">よーい…</div>
+  <div class="ctrl"><button class="btn sub" id="btn-tug-back">もどる</button></div>
+</section>
+
+<!-- 最終結果 -->
+<section id="scr-final" class="view">
+  <div class="confetti" id="confetti"></div>
+  <div class="final-title">けっか発表</div>
+  <div class="podium">
+    <div class="pod second"><div class="pname" id="pod2-name"></div><div class="pscore" id="pod2-score"></div><div class="pbase">2位</div></div>
+    <div class="pod first"><div class="pname" id="pod1-name"></div><div class="pscore" id="pod1-score"></div><div class="pbase">1位</div></div>
+    <div class="pod third"><div class="pname" id="pod3-name"></div><div class="pscore" id="pod3-score"></div><div class="pbase">3位</div></div>
+  </div>
+  <ol class="final-list" id="final-list"></ol>
+  <div class="ctrl">
+    <button class="btn" id="btn-again">もう一回</button>
+    <button class="btn sub" id="btn-tug2">団体戦（綱引き）</button>
+    <button class="btn ghost" id="btn-save">結果をランキングに保存</button>
+  </div>
+  <div class="note" id="final-note"></div>
+</section>
+
+<div id="countdown"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script src="../shared.js"></script>
+<script src="../net.js"></script>
+<script src="screen.js"></script>
+</body>
+</html>

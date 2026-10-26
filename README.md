@@ -8,6 +8,7 @@
 - watch.html / watch.css / watch.js …… 対戦の観戦画面（大型モニタ用）
 - shared.js …… キャラ定義・Supabase 設定・効果音（全ページ共通）
 - net.js …… 対戦の通信層（Supabase Realtime／同一ブラウザ内）
+- event/ …… 会場イベント用「なやまっち一斉たたき」（index.html＝スマホ、screen.html＝モニタ）
 - img/ …… キャラクターと穴のコマ（22枚＋タイトル）
 - icons/, favicon.png, ogp.png, manifest.webmanifest …… PWA・共有用
 
@@ -75,6 +76,43 @@ const CONFIG = {
 - 1部屋あたり毎秒 10〜20 メッセージ程度。無料枠で十分です
 - CONFIG 未設定、または URL に `?local=1` を付けた場合は同一ブラウザ内（別タブ同士）で動く
   デモ／確認用モードになります。`?local=1&t=15` で制限時間を短縮できます（ローカル時のみ）
+
+## 会場イベント用「なやまっち一斉たたき」（大人数一斉）
+反射神経バトル。モニタの合図で全員のスマホに同時になやまっちが出て、はやく叩いた順に高得点。
+
+1. 会場のPCで `event/screen.html` を開く（右上 ⛶ で全画面）。QR と部屋コードが出る
+2. 参加者はスマホで QR を読む（または `event/` を開いてコードを入力）。名前を入れて「参加する」
+3. モニタでラウンド数（5/10/15/20）を選んで「スタート」。1ラウンド約10秒、10ラウンドで2分弱
+4. 終了後はモニタに表彰台と TOP10。「もう一回」で同じ参加者のまま再戦、途中参加も可
+
+ルール
+- なやまっち：出てから叩くまでの時間で得点（1000 − ms、最低100点）
+- 商店街の人：叩くと −300、がまんできたら +150
+- ドクター・ヒロ：得点2倍
+- 出る前に叩くとフライング −100
+- 反応時間は各スマホが手元で計るので、回線の速さは順位に影響しません
+
+団体戦（綱引き）
+- モニタの「団体戦（綱引き）」で開始。参加者は自動で あか／あお に分かれる（スマホに表示）
+- 10秒間連打。人数差を補正するため「一人あたりの回数」で勝負
+
+通信量の目安
+- 1ラウンドにつき 1人1通（0〜0.6秒に散らして送信）。綱引き中は 0.5秒に1通
+- Supabase Pro（同時接続500）なら 300人規模まで問題ありません
+
+結果をランキングに保存したい場合（任意）
+- モニタの最終結果画面「結果をランキングに保存」で game_scores に game='nayamole-event' として入ります。
+  insert ポリシーの game 条件に追加してください：
+
+```sql
+drop policy if exists "insert scores" on public.game_scores;
+create policy "insert scores" on public.game_scores
+  for insert with check (
+    game in ('nayamole', 'nayamole-event')
+    and char_length(name) between 1 and 10
+    and score between 0 and 100000
+  );
+```
 
 ## メモ
 - 効果音は WebAudio 生成（音源ファイルなし）。右上ボタンでミュート。

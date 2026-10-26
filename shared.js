@@ -1,6 +1,9 @@
 /* =========================================================
    共通定義（ひとり用 game.js と 対戦 versus.js / watch.js で共用）
 ========================================================= */
+/* shared.js の置き場所を基準に画像パスを解決（event/ などサブフォルダからも使える） */
+const ASSET_BASE = (document.currentScript && document.currentScript.src)
+  ? document.currentScript.src.replace(/[^/]*$/, '') : '';
 const IMG = {
   nayafire_peek: 'img/nayafire_peek.png',
   nayafire_half: 'img/nayafire_half.png',
@@ -29,6 +32,7 @@ const IMG = {
   naya_half: 'img/naya_half.png',
   naya_hit: 'img/naya_hit.png',
 };
+Object.keys(IMG).forEach(k => { IMG[k] = ASSET_BASE + IMG[k]; });
 function imgTag(key, alt){ return '<img src="'+IMG[key]+'" alt="'+alt+'">'; }
 
 const RESIDENTS = [
