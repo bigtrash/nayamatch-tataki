@@ -1,0 +1,118 @@
+/* =========================================================
+   一斉たたき モニタ画面
+========================================================= */
+:root{
+  --yellow:#f7dd4a; --crimson:#ae1e24; --orange:#ee7800; --navy:#16294f; --navy-deep:#0d1a36;
+  --green:#0f8a4c; --paper:#f4ecd6; --ink:#241d14; --soil:#6b4a2a; --red:#e5383f; --blue:#3fa0ff;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%}
+body{
+  font-family:'DotGothic16',sans-serif; color:#fff; background:var(--navy-deep);
+  background-image:radial-gradient(rgba(255,255,255,.07) 1px, transparent 1px); background-size:18px 18px;
+  overflow:hidden; user-select:none; display:flex; flex-direction:column;
+}
+button,select{font-family:inherit}
+.topbar{display:flex; align-items:center; justify-content:space-between; gap:2vw; padding:.6vh 2vw; background:var(--navy); border-bottom:.4vh solid var(--yellow)}
+.brand{display:flex; align-items:center; gap:.8vw}
+.na-mark{width:3.2vh; height:3.2vh; border-radius:50%; background:#fff; color:var(--navy); display:inline-flex; align-items:center; justify-content:center; font-size:2vh}
+.ttl{font-size:2.6vh; letter-spacing:.08em} .sub{font-size:1.5vh; opacity:.8; letter-spacing:.15em}
+.chips{display:flex; gap:1vw}
+.chip{font-size:2vh; background:rgba(255,255,255,.1); padding:.4vh 1.4vw; border-radius:1vh; letter-spacing:.1em}
+.chip b{color:var(--yellow); font-size:2.6vh}
+.tools button{width:4vh; height:4vh; border-radius:50%; border:.25vh solid #fff; background:rgba(255,255,255,.12); color:#fff; font-size:2vh; cursor:pointer; margin-left:.6vw}
+
+.view{display:none; flex:1; min-height:0; flex-direction:column; padding:2vh 3vw; position:relative}
+.view.active{display:flex}
+.btn{font-size:2.8vh; padding:1.4vh 3vw; background:var(--crimson); color:#fff; border:none; border-radius:1.2vh; box-shadow:0 .6vh 0 #6d1216; cursor:pointer; letter-spacing:.1em}
+.btn:active{transform:translateY(.4vh); box-shadow:0 .2vh 0 #6d1216}
+.btn:disabled{opacity:.4; pointer-events:none}
+.btn.sub{background:var(--navy); box-shadow:0 .6vh 0 #0a1530; border:.3vh solid rgba(255,255,255,.4)}
+.btn.ghost{background:transparent; box-shadow:none; border:.3vh solid rgba(255,255,255,.5)}
+.ctrl{display:flex; gap:1.5vw; justify-content:center; margin-top:2vh}
+.note{font-size:1.8vh; opacity:.7; text-align:center; margin-top:1.5vh; min-height:1.8vh}
+
+/* ---- 受付 ---- */
+.setup-grid{display:grid; grid-template-columns:auto 1fr; gap:4vw; align-items:center; flex:1; min-height:0}
+.qr-card{background:#fff; color:var(--ink); border-radius:2.4vh; padding:3vh 3vw; text-align:center; box-shadow:0 1.6vh 0 rgba(0,0,0,.35)}
+.qr-label{font-size:2.6vh; letter-spacing:.1em; margin-bottom:1.5vh}
+#qr{width:46vh; height:46vh; margin:0 auto; display:flex; align-items:center; justify-content:center}
+#qr img, #qr canvas{width:100% !important; height:100% !important; image-rendering:pixelated}
+#qr .noqr{font-size:2vh; color:#6a5c48; padding:2vh}
+.join-url{font-family:monospace; font-size:1.8vh; color:var(--navy); margin-top:1.5vh; word-break:break-all}
+.qr-code-label{font-size:2.6vh; margin-top:1vh; letter-spacing:.1em}
+.qr-code-label b{color:var(--crimson); font-size:7vh; letter-spacing:.2em; display:block; line-height:1.1}
+.setup-right{display:flex; flex-direction:column; align-items:center; gap:2.5vh}
+.hero img{height:22vh; animation:kSway 1.6s ease-in-out infinite; transform-origin:50% 96%}
+@keyframes kSway{0%,100%{transform:rotate(-3deg)}50%{transform:rotate(3deg)}}
+.howto{font-size:2.6vh; line-height:2; background:rgba(255,255,255,.07); border:.3vh solid rgba(255,255,255,.2); border-radius:2vh; padding:2vh 3vw}
+.howto b{color:#ffb3b6} .howto .fv{color:var(--yellow)}
+.setup-ctrl{display:flex; align-items:center; gap:1.5vw; flex-wrap:wrap; justify-content:center}
+.setup-ctrl label{font-size:2.2vh; display:flex; align-items:center; gap:.8vw}
+.setup-ctrl select{font-size:2.4vh; padding:.6vh 1vw; border-radius:1vh; border:.3vh solid #fff; background:var(--navy); color:#fff}
+.names{display:flex; flex-wrap:wrap; gap:.8vh 1vw; margin-top:2vh; max-height:14vh; overflow:hidden; justify-content:center}
+.names span{font-size:2.1vh; background:rgba(255,255,255,.12); padding:.4vh 1.2vw; border-radius:1vh; animation:popin .3s ease}
+@keyframes popin{from{transform:scale(.5); opacity:0}to{transform:none; opacity:1}}
+
+/* ---- ラウンド ---- */
+.round-top{display:flex; justify-content:space-between; align-items:baseline; margin-bottom:1.5vh}
+.round-no{font-size:4vh; letter-spacing:.1em}
+.round-kind{font-size:3vh; color:var(--yellow); min-height:3vh}
+.round-body{flex:1; display:grid; grid-template-columns:1fr 34vw; gap:2vw; min-height:0}
+.stage{
+  position:relative; border:.6vh solid var(--ink); border-radius:3vh; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:1vh;
+  background:linear-gradient(#7fae57,#5c8f3f 22%, var(--soil) 22%); transition:background .25s; overflow:hidden;
+}
+.stage.wait{background:#0a1530}
+.stage.wait .stage-hole{visibility:hidden}
+.stage.fever{box-shadow:0 0 0 .8vh var(--yellow), 0 0 6vh rgba(238,120,0,.7)}
+.stage-msg{font-size:9vh; text-shadow:.6vh .6vh 0 rgba(0,0,0,.45); letter-spacing:.1em; min-height:1.2em; z-index:2}
+.stage.wait .stage-msg{animation:blink 1.2s ease infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.35}}
+.stage-hole{width:40vh; aspect-ratio:1/1.05; position:relative}
+.stage-img{position:absolute; inset:0; width:100%; height:100%; object-fit:contain; object-position:center bottom}
+.stage-sub{font-size:3vh; opacity:.9; min-height:1.3em; text-shadow:.3vh .3vh 0 rgba(0,0,0,.4); z-index:2}
+.side{display:flex; flex-direction:column; gap:1.5vh; min-height:0}
+.panel{background:rgba(255,255,255,.07); border:.3vh solid rgba(255,255,255,.2); border-radius:2vh; padding:1.5vh 1.5vw; flex:1; min-height:0; display:flex; flex-direction:column}
+.panel-title{font-size:2.2vh; letter-spacing:.2em; color:var(--yellow); margin-bottom:1vh}
+.rt-list, .total-list, .final-list{list-style:none; overflow:hidden; flex:1}
+.rt-list li, .total-list li{display:flex; align-items:baseline; gap:1vw; font-size:2.6vh; padding:.5vh 0; border-bottom:.2vh dashed rgba(255,255,255,.2); animation:popin .25s ease}
+.rt-list .rk, .total-list .rk{width:3em; opacity:.7; font-size:2vh}
+.rt-list .nm, .total-list .nm{flex:1; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.rt-list .ms{color:var(--yellow)} .rt-list .pt, .total-list .sc{font-size:2.6vh}
+.total-list li.me{color:var(--yellow)}
+.rt-stat{font-size:2vh; opacity:.8; margin-top:1vh; line-height:1.6}
+
+/* ---- 綱引き ---- */
+.tug-head{display:flex; justify-content:space-between; align-items:baseline}
+.tug-title{font-size:4vh; letter-spacing:.1em}
+.tug-time{font-size:9vh; line-height:1; color:var(--yellow)}
+.tug-arena{flex:1; display:grid; grid-template-columns:22vw 1fr 22vw; align-items:center; gap:2vw}
+.tug-side{text-align:center; border-radius:2.4vh; padding:3vh 1vw}
+.tug-side.red{background:rgba(229,56,63,.25); border:.5vh solid var(--red)} .tug-side.blue{background:rgba(63,160,255,.25); border:.5vh solid var(--blue)}
+.tname{font-size:3.2vh; letter-spacing:.2em} .tcount{font-size:11vh; line-height:1.1} .tsub{font-size:1.8vh; opacity:.6; margin-top:-.5vh} .tmem{font-size:2.2vh; opacity:.7; margin-top:1vh}
+.tug-bar{height:8vh; border-radius:4vh; background:linear-gradient(90deg,#8ac6ff,var(--blue)); position:relative; overflow:visible; border:.4vh solid rgba(255,255,255,.35)}
+.tug-fill{height:100%; width:50%; background:linear-gradient(90deg,var(--red),#ff8a8e); border-radius:4vh 0 0 4vh; transition:width .4s ease}
+.tug-rope{position:absolute; top:50%; left:50%; width:0; height:0}
+.tug-rope span{position:absolute; left:var(--x,0); top:0; transform:translate(-50%,-62%); transition:left .4s ease}
+.tug-rope img{height:16vh}
+.tug-msg{font-size:6vh; text-align:center; margin:2vh 0 0; letter-spacing:.1em; min-height:1.2em}
+
+/* ---- 最終結果 ---- */
+.final-title{font-size:5vh; text-align:center; letter-spacing:.3em; color:var(--yellow); margin-bottom:1vh}
+.podium{display:flex; align-items:flex-end; justify-content:center; gap:2vw; height:36vh}
+.pod{display:flex; flex-direction:column; align-items:center; justify-content:flex-end; width:22vw; animation:rise .6s ease both}
+.pod .pname{font-size:3.4vh; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:100%}
+.pod .pscore{font-size:4.5vh; color:var(--yellow); line-height:1.2}
+.pod .pbase{width:100%; background:var(--paper); color:var(--ink); text-align:center; font-size:3.5vh; border-radius:1.5vh 1.5vh 0 0; border:.5vh solid var(--ink); border-bottom:none; margin-top:1vh; display:flex; align-items:flex-start; justify-content:center; padding-top:1vh}
+.pod.first .pbase{height:18vh; background:var(--yellow)} .pod.second .pbase{height:12vh} .pod.third .pbase{height:8vh}
+.pod.first{animation-delay:.6s} .pod.second{animation-delay:.3s} .pod.third{animation-delay:0s}
+@keyframes rise{from{transform:translateY(4vh); opacity:0}to{transform:none; opacity:1}}
+.final-list{display:grid; grid-template-columns:repeat(2, 1fr); gap:.6vh 3vw; margin:2vh auto 0; width:70vw; flex:none}
+.final-list li{display:flex; gap:1vw; font-size:2.5vh; border-bottom:.2vh dashed rgba(255,255,255,.2); padding:.4vh 0}
+.final-list .rk{width:3em; opacity:.7} .final-list .nm{flex:1; white-space:nowrap; overflow:hidden; text-overflow:ellipsis} .final-list .sc{color:var(--yellow)}
+.confetti{position:absolute; inset:0; pointer-events:none; overflow:hidden; z-index:0}
+.confetti i{position:absolute; top:-3vh; width:1.4vh; height:2.2vh; opacity:.9; animation:fall linear forwards}
+@keyframes fall{to{transform:translateY(110vh) rotate(720deg)}}
+
+#countdown{position:fixed; inset:0; display:none; align-items:center; justify-content:center; font-size:30vh; color:var(--yellow); z-index:25; pointer-events:none; text-shadow:1vh 1vh 0 rgba(0,0,0,.5)}

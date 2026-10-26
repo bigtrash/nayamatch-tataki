@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="color-scheme" content="light">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>なやまっちたたき 対戦｜納屋町商店街</title>
+<meta name="description" content="なやまっちたたきの2人対戦モード。スマホ2台で同時にたたいて、大型モニタで観戦！">
+<meta property="og:title" content="なやまっちたたき 対戦｜納屋町商店街">
+<meta property="og:description" content="2人で同時にたたいて勝負！">
+<meta property="og:image" content="ogp.png">
+<meta property="og:type" content="website">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DotGothic16&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="versus.css">
+</head>
+<body>
+<div id="bg-underlay" aria-hidden="true"></div>
+<button id="mute-btn" title="音を切り替え">♪</button>
+<header>
+  <div class="noren">
+    <div class="na-mark">な</div>
+    <h1>なやまっちたたき</h1>
+  </div>
+  <div class="tagline">2人対戦 — 納屋町商店街</div>
+</header>
+
+<main>
+  <!-- 入口 -->
+  <section id="scr-entry" class="screen active">
+    <div class="title-hero" id="title-naya"></div>
+    <div class="rules">
+      ・2台のスマホで<b>同時にたたいて</b>スコア勝負<br>
+      ・出てくる順番は<b>ふたりとも同じ</b>。運じゃなくて腕！<br>
+      ・コンボ<b>5のたびに</b>相手の盤面へ<span class="fever-word">商店街の人</span>を送り込み<br>
+      ・大型モニタで観戦するには <b>watch.html</b> を開いて部屋コードを入力
+    </div>
+    <label class="field">
+      <span>なまえ</span>
+      <input id="name-input" maxlength="10" placeholder="なまえ（10文字まで）">
+    </label>
+    <div class="stack">
+      <button class="btn" id="btn-create">部屋をつくる</button>
+      <div class="join-row">
+        <input id="code-input" inputmode="numeric" pattern="[0-9]*" maxlength="4" placeholder="部屋コード 4けた">
+        <button class="btn sub" id="btn-join">入る</button>
+      </div>
+      <a class="btn ghost linkbtn" href="index.html">ひとりで遊ぶ</a>
+    </div>
+    <div class="footnote" id="entry-note"></div>
+  </section>
+
+  <!-- 部屋 -->
+  <section id="scr-room" class="screen">
+    <div class="room-card">
+      <div class="label">部屋コード</div>
+      <div class="room-code" id="room-code">0000</div>
+      <div class="room-hint">相手のスマホで <b>versus.html</b> を開いてこのコードを入力</div>
+      <div class="room-hint">観戦用（大型モニタ）：<span class="mono" id="watch-url"></span></div>
+    </div>
+    <div class="members-panel">
+      <div class="label">参加者</div>
+      <ul class="members" id="members"></ul>
+    </div>
+    <div class="stack">
+      <button class="btn" id="btn-start" disabled>対戦スタート</button>
+      <div class="waiting-note" id="waiting-note">相手の参加を待っています…</div>
+      <button class="btn ghost" id="btn-leave">部屋を出る</button>
+    </div>
+    <div class="footnote" id="room-note"></div>
+  </section>
+
+  <!-- ゲーム -->
+  <section id="scr-game" class="screen">
+    <div class="vs-strip">
+      <div class="vs-me"><span class="nm" id="vs-me-name">じぶん</span></div>
+      <div class="vs-bar"><div class="vs-fill" id="vs-fill"></div></div>
+      <div class="vs-op"><span class="nm" id="vs-op-name">あいて</span><span class="sc" id="vs-op-score">0</span></div>
+    </div>
+    <div class="hud">
+      <div class="box" id="hud-score"><div class="label">スコア</div><div class="val">0</div></div>
+      <div class="box" id="hud-combo"><div class="label">コンボ</div><div class="val">0</div></div>
+      <div class="box" id="hud-time"><div class="label">のこり</div><div class="val">60</div></div>
+    </div>
+    <div id="fever-bar"><div id="fever-fill"></div></div>
+    <div id="board"></div>
+    <div class="toast" id="toast"></div>
+  </section>
+
+  <!-- 結果 -->
+  <section id="scr-result" class="screen">
+    <div class="result-card">
+      <div class="verdict" id="verdict">WIN</div>
+      <div class="vs-scores">
+        <div class="col"><div class="who" id="rs-me-name">じぶん</div><div class="big" id="rs-me">0</div><div class="meta" id="rs-me-meta"></div></div>
+        <div class="vsmark">vs</div>
+        <div class="col"><div class="who" id="rs-op-name">あいて</div><div class="big op" id="rs-op">0</div><div class="meta" id="rs-op-meta"></div></div>
+      </div>
+    </div>
+    <div class="stack">
+      <button class="btn" id="btn-again">もう一回</button>
+      <div class="waiting-note" id="again-note"></div>
+      <button class="btn ghost" id="btn-leave2">部屋を出る</button>
+    </div>
+  </section>
+</main>
+
+<div id="countdown"></div>
+
+<script src="shared.js"></script>
+<script src="net.js"></script>
+<script src="versus.js"></script>
+</body>
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="color-scheme" content="dark">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>なやまっちたたき 対戦 観戦｜納屋町商店街</title>
+<meta name="description" content="なやまっちたたき 2人対戦の観戦画面。大型モニタに映して会場で盛り上がろう！">
+<meta property="og:title" content="なやまっちたたき 対戦 観戦｜納屋町商店街">
+<meta property="og:image" content="ogp.png">
+<meta property="og:type" content="website">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DotGothic16&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="watch.css">
+</head>
+<body>
+<div class="topbar">
+  <div class="brand"><span class="na-mark">な</span><span class="ttl">なやまっちたたき</span><span class="sub">2人対戦 — 納屋町商店街</span></div>
+  <div class="room-chip" id="room-chip">部屋 <b id="chip-code">----</b></div>
+  <div class="tools">
+    <button id="mute-btn" title="音を切り替え">♪</button>
+    <button id="fs-btn" title="全画面">⛶</button>
+  </div>
+</div>
+
+<!-- 部屋コード入力 -->
+<section id="scr-entry" class="overlay active">
+  <div class="card">
+    <div class="hero" id="entry-naya"></div>
+    <h2>観戦をはじめる</h2>
+    <p>プレイヤーのスマホに表示された部屋コードを入力</p>
+    <div class="join-row">
+      <input id="code-input" inputmode="numeric" pattern="[0-9]*" maxlength="4" placeholder="4けた">
+      <button class="btn" id="btn-watch">観戦</button>
+    </div>
+    <div class="note" id="entry-note"></div>
+  </div>
+</section>
+
+<!-- 本体 -->
+<main id="arena">
+  <div class="tug">
+    <div class="tug-name a" id="tug-a">—</div>
+    <div class="tug-bar"><div class="tug-fill" id="tug-fill"></div><div class="tug-mid"></div></div>
+    <div class="tug-name b" id="tug-b">—</div>
+  </div>
+
+  <div class="stage">
+    <section class="player a" id="pl-a">
+      <div class="phead">
+        <div class="pname" id="pa-name">プレイヤー1</div>
+        <div class="pscore" id="pa-score">0</div>
+        <div class="pcombo" id="pa-combo"><span class="n">0</span> コンボ</div>
+      </div>
+      <div class="pboard" id="pa-board"></div>
+      <div class="pfever" id="pa-fever">笑顔フィーバー！</div>
+    </section>
+
+    <section class="center">
+      <div class="clock" id="clock">60</div>
+      <div class="clock-label">のこり</div>
+      <div class="vsmark">VS</div>
+      <ul class="ticker" id="ticker"></ul>
+    </section>
+
+    <section class="player b" id="pl-b">
+      <div class="phead">
+        <div class="pname" id="pb-name">プレイヤー2</div>
+        <div class="pscore" id="pb-score">0</div>
+        <div class="pcombo" id="pb-combo"><span class="n">0</span> コンボ</div>
+      </div>
+      <div class="pboard" id="pb-board"></div>
+      <div class="pfever" id="pb-fever">笑顔フィーバー！</div>
+    </section>
+  </div>
+</main>
+
+<!-- 待機 -->
+<section id="scr-lobby" class="overlay">
+  <div class="card lobby">
+    <div class="lobby-label">部屋コード</div>
+    <div class="lobby-code" id="lobby-code">0000</div>
+    <div class="lobby-hint">スマホで <b>versus.html</b> を開いてコードを入力</div>
+    <ul class="lobby-members" id="lobby-members"></ul>
+    <div class="lobby-status" id="lobby-status">プレイヤーを待っています…</div>
+  </div>
+</section>
+
+<!-- 結果 -->
+<section id="scr-result" class="overlay">
+  <div class="confetti" id="confetti"></div>
+  <div class="card result">
+    <div class="result-label">けっか</div>
+    <div class="winner" id="winner">—</div>
+    <div class="result-scores">
+      <div class="col a"><div class="who" id="rs-a-name"></div><div class="num" id="rs-a"></div><div class="meta" id="rs-a-meta"></div></div>
+      <div class="vs">vs</div>
+      <div class="col b"><div class="who" id="rs-b-name"></div><div class="num" id="rs-b"></div><div class="meta" id="rs-b-meta"></div></div>
+    </div>
+    <div class="result-note">ホストの「もう一回」で次の対戦がはじまります</div>
+  </div>
+</section>
+
+<div id="countdown"></div>
+
+<script src="shared.js"></script>
+<script src="net.js"></script>
+<script src="watch.js"></script>
+</body>
+</html>

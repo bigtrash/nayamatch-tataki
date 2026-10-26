@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="color-scheme" content="light">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>なやまっち一斉たたき｜納屋町商店街</title>
+<meta name="description" content="会場のみんなで同時にたたく、なやまっちの反射神経バトル。スマホで参加！">
+<meta property="og:title" content="なやまっち一斉たたき｜納屋町商店街">
+<meta property="og:description" content="みんなで同時に、たたけ！">
+<meta property="og:image" content="../ogp.png">
+<meta property="og:type" content="website">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="icon" href="../icons/icon-192.png">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DotGothic16&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="player.css">
+</head>
+<body>
+<div id="bg-underlay" aria-hidden="true"></div>
+<button id="mute-btn" title="音を切り替え">♪</button>
+<header>
+  <div class="noren">
+    <div class="na-mark">な</div>
+    <h1>なやまっち一斉たたき</h1>
+  </div>
+  <div class="tagline">みんなで同時に、たたけ！ — 納屋町商店街</div>
+</header>
+
+<main>
+  <!-- 参加 -->
+  <section id="scr-entry" class="screen active">
+    <div class="title-hero" id="title-naya"></div>
+    <div class="rules">
+      ・モニタの合図で<b>なやまっち</b>が飛び出す。<b>はやくたたけ！</b><br>
+      ・<b>商店街の人</b>が出たら<b>たたかない</b>。がまんでボーナス<br>
+      ・<span class="fever-word">ドクター・ヒロ</span>の回は得点<span class="fever-word">2倍</span><br>
+      ・出る前にたたくと<b>フライング</b>で減点
+    </div>
+    <label class="field"><span>なまえ</span><input id="name-input" maxlength="10" placeholder="なまえ（10文字まで）"></label>
+    <label class="field"><span>部屋コード（モニタに表示）</span><input id="code-input" inputmode="numeric" pattern="[0-9]*" maxlength="4" placeholder="4けた"></label>
+    <div class="stack">
+      <button class="btn" id="btn-join">参加する</button>
+    </div>
+    <div class="footnote" id="entry-note"></div>
+  </section>
+
+  <!-- 待機 -->
+  <section id="scr-lobby" class="screen">
+    <div class="result-card">
+      <div class="label">参加できました！</div>
+      <div class="big-name" id="lobby-name">なまえ</div>
+      <div class="meta">いま <b id="lobby-count">1</b> 人が参加中</div>
+      <div class="team-chip" id="team-chip"></div>
+    </div>
+    <div class="waiting-note">モニタを見て、はじまるのを待ってね</div>
+    <div class="stack"><button class="btn ghost" id="btn-leave">退出する</button></div>
+  </section>
+
+  <!-- ラウンド -->
+  <section id="scr-round" class="screen">
+    <div class="round-head"><span id="round-label">ラウンド 1</span><span class="total" id="total-score">0 点</span></div>
+    <div id="arena" class="arena wait">
+      <div class="arena-msg" id="arena-msg">まて…</div>
+      <div class="hole big-hole"><img class="cellimg" id="arena-img" alt=""></div>
+      <div class="arena-result" id="arena-result"></div>
+    </div>
+    <div class="footnote">画面のどこを押してもOK</div>
+  </section>
+
+  <!-- 団体戦 -->
+  <section id="scr-tug" class="screen">
+    <div class="round-head"><span>団体戦・綱引き</span><span class="total" id="tug-time">10</span></div>
+    <div id="tug-btn" class="tug-btn">
+      <div class="tug-team" id="tug-team">あか</div>
+      <div class="tug-msg" id="tug-msg">連打！</div>
+      <div class="tug-count" id="tug-count">0</div>
+    </div>
+  </section>
+
+  <!-- 最終結果 -->
+  <section id="scr-final" class="screen">
+    <div class="result-card">
+      <div class="label" style="font-size:12px;color:#6a5c48">けっか</div>
+      <div class="rank" id="final-rank">—位</div>
+      <div class="meta" id="final-meta"></div>
+      <div class="big" id="final-score">0</div>
+      <div class="meta">点</div>
+    </div>
+    <div class="board-panel">
+      <div class="board-tabs"><button class="on">TOP 5</button></div>
+      <ol class="board-list" id="final-list"></ol>
+    </div>
+    <div class="waiting-note" id="final-note">モニタの「もう一回」で次がはじまります</div>
+    <div class="stack"><button class="btn ghost" id="btn-leave2">退出する</button></div>
+  </section>
+</main>
+
+<div id="flash"></div>
+
+<script src="../shared.js"></script>
+<script src="../net.js"></script>
+<script src="player.js"></script>
+</body>
+</html>
