@@ -1,4 +1,12 @@
   /* ---- 対戦（プレイヤー側）追加スタイル ---- */
+  .title-hero img{height:120px}
+  .title-hero{margin:6px 0 12px}
+  .rules-title{font-size:11px; letter-spacing:.2em; color:#6a5c48; margin-bottom:4px}
+  .rules.howto{background:var(--navy); color:#fff; border-color:var(--navy)}
+  .rules.howto b{color:var(--yellow)}
+  .rules.howto .rules-title{color:rgba(255,255,255,.7)}
+  .rules.howto ol{padding-left:1.4em; margin:0}
+  .rules.howto li{padding-left:.2em; margin-bottom:2px}
   .field{display:block; margin-bottom:12px}
   .field span{display:block; font-size:11px; color:#6a5c48; letter-spacing:.1em; margin-bottom:4px}
   .field input, .join-row input{
